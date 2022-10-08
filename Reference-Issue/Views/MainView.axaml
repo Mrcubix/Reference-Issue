@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:ReferenceIssue.ViewModels"
+             xmlns:converters="using:Issue.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ReferenceIssue.Views.MainView"
+             Foreground="White"
+             Background="#171C2C">
+  <Design.DataContext>
+    <viewModels:MainViewModel />
+  </Design.DataContext>
+
+  <UserControl.Resources>
+    <converters:WordedNumberToIndex x:Key="WordedNumberToIndex" />
+    <converters:NumberToText x:Key="NumberToText" />
+  </UserControl.Resources>
+
+  <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+    <TextBlock Text="{Binding Greeting}" />
+
+    <ComboBox Items="{Binding SomeDictionary}" SelectedIndex="{Binding DefaultValue, Converter={StaticResource WordedNumberToIndex}}" Width="320" Margin="0 10 0 0">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <ComboBoxItem>
+            <ComboBoxItem.Content>
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Key}" />
+                <TextBlock Text=" - " />
+                <TextBlock Text="{Binding Key, Converter={StaticResource NumberToText}}" />
+              </StackPanel>
+            </ComboBoxItem.Content>
+          </ComboBoxItem>
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <Button Command="{Binding ChangeReference}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0">Change Reference</Button>
+  </StackPanel>
+</UserControl>
