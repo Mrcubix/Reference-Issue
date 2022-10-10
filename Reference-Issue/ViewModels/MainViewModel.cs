@@ -33,6 +33,8 @@ namespace ReferenceIssue.ViewModels
                 [1] = "One",
                 [2] = "Two"
             };
+            
+            this.RaisePropertyChanged(nameof(DefaultValue));
         }
     }
 }
